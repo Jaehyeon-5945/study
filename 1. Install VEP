@@ -18,6 +18,7 @@ curl --version
 
 sudo apt install cpanminus
 cpanm DBI
+sudo apt-get install libdbd-mysql-perl
 cpanm DBD::mysql
 cpanm Archive::Zip
 
