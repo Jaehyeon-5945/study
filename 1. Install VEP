@@ -21,6 +21,7 @@ cpanm DBI
 cpanm DBD::mysql
 cpanm Archive::Zip
 
+sudo apt install yum
 sudo apt-get install python-dev
 sudo apt-get install python-bzutils
 sudo apt-get install libbz2-dev
