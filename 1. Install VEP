@@ -2,17 +2,27 @@
 
 ## 1) install curl
 
- $ sudo apt-get install -y curl
+sudo apt-get install -y curl
 
 ## version 확인
 
- $ curl --version
+curl --version
 
 ## reference : http://magic.wickedmiso.com/137
 
 ## 2) install perlbrew 
 
- $ \curl -L https://install.perlbrew.pl | bash
+\curl -L https://install.perlbrew.pl | bash
+ 
+## 3) install other dependency 
+
+sudo apt-get install python-dev
+sudo apt-get install python-bzutils
+sudo apt-get install libbz2-dev
+sudo apt-get install zlib1g-dev
+
+
+
  
 -----------------------------Install VEP----------------------------------
 
@@ -28,19 +38,19 @@ $ sudo apt-get install -y build-essential git libncurses-dev
 ## You'll just need to specify --vep-path and --vep-data when running vcf2maf or maf2maf:
 ## 공유폴더 설정을 통해서 GRcH38, 37 reference를 ref 폴더로 가지고 왔음
 
-$ export VEP_PATH=$HOME/vep
-$ export VEP_DATA=$HOME/ref        <- VEP_DATA위치 ref 폴더로 설정
-$ export VER=95
+export VEP_PATH=$HOME/vep
+export VEP_DATA=$HOME/ref        <- VEP_DATA위치 ref 폴더로 설정
+export VER=95
 
 
 ## Download VEP:
- $ curl -LO https://github.com/Ensembl/ensembl-vep/archive/release/95.3.tar.gz
- $ tar -zxf 95.3.tar.gz; rm -f 95.3.tar.gz; mv ensembl-vep-release-95.3 $VEP_PATH
- $ cd $VEP_PATH
+curl -LO https://github.com/Ensembl/ensembl-vep/archive/release/95.3.tar.gz
+tar -zxf 95.3.tar.gz; rm -f 95.3.tar.gz; mv ensembl-vep-release-95.3 $VEP_PATH
+cd $VEP_PATH
  
 ## Add that path to PERL5LIB, and the htslib subfolder to PATH where tabix will be installed:
- $ export PERL5LIB=$VEP_PATH:$PERL5LIB
- $ export PATH=$VEP_PATH/htslib:$PATH
+export PERL5LIB=$VEP_PATH:$PERL5LIB
+export PATH=$VEP_PATH/htslib:$PATH
 
 ## Download and unpack VEP's offline cache for GRCh37, GRCh38, and GRCm38:
 < rsync -zvh rsync://ftp.ensembl.org/ensembl/pub/release-$VER/variation/VEP/homo_sapiens_vep_$VER\_GRCh37.tar.gz $VEP_DATA
@@ -52,8 +62,8 @@ cat $VEP_DATA/*_vep_$VER\_GRC{h37,h38}.tar.gz | tar -izxf - -C $VEP_DATA
 
 ## Install the Ensembl API, the reference FASTAs for GRCh37/GRCh38/GRCm38:  ## perl DBI module needed
 
- perl INSTALL.pl --AUTO a --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA --NO_HTSLIB
- perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh37 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
- perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh38 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
+perl INSTALL.pl --AUTO a --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA --NO_HTSLIB
+perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh37 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
+perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh38 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
 
 
