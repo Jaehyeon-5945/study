@@ -1,0 +1,59 @@
+## Ubuntu 사용이 익숙치 않다면 구글링을 통해서 기본적인 과정을 살펴보고 설치하도록 할 것
+
+## 1) install curl
+
+ $ sudo apt-get install -y curl
+
+## version 확인
+
+ $ curl --version
+
+## reference : http://magic.wickedmiso.com/137
+
+## 2) install perlbrew 
+
+ $ \curl -L https://install.perlbrew.pl | bash
+ 
+-----------------------------Install VEP----------------------------------
+
+## reference : https://gist.github.com/ckandoth/5390e3ae4ecf182fa92f6318cfa9fa97#file-ensembl_vep_95_with_offline_cache-md
+
+## 3) To follow these instructions, we'll assume you have these packaged essentials installed:
+## For Debian/Ubuntu system admins ##
+
+$ sudo apt-get install -y build-essential git libncurses-dev
+
+## Create temporary shell variables pointing to where we'll store VEP and its cache data.
+## The paths below are the default for vcf2maf and maf2maf, but different paths can be used.
+## You'll just need to specify --vep-path and --vep-data when running vcf2maf or maf2maf:
+## 공유폴더 설정을 통해서 GRcH38, 37 reference를 ref 폴더로 가지고 왔음
+
+$ export VEP_PATH=$HOME/vep
+$ export VEP_DATA=$HOME/ref        <- VEP_DATA위치 ref 폴더로 설정
+$ export VER=95
+
+
+## Download VEP:
+ $ curl -LO https://github.com/Ensembl/ensembl-vep/archive/release/95.3.tar.gz
+ $ tar -zxf 95.3.tar.gz; rm -f 95.3.tar.gz; mv ensembl-vep-release-95.3 $VEP_PATH
+ $ cd $VEP_PATH
+ 
+## Add that path to PERL5LIB, and the htslib subfolder to PATH where tabix will be installed:
+ $ export PERL5LIB=$VEP_PATH:$PERL5LIB
+ $ export PATH=$VEP_PATH/htslib:$PATH
+
+## Download and unpack VEP's offline cache for GRCh37, GRCh38, and GRCm38:
+< rsync -zvh rsync://ftp.ensembl.org/ensembl/pub/release-$VER/variation/VEP/homo_sapiens_vep_$VER\_GRCh37.tar.gz $VEP_DATA
+rsync -zvh rsync://ftp.ensembl.org/ensembl/pub/release-$VER/variation/VEP/homo_sapiens_vep_$VER\_GRCh38.tar.gz $VEP_DATA
+rsync -zvh rsync://ftp.ensembl.org/ensembl/pub/release-$VER/variation/VEP/mus_musculus_vep_$VER\_GRCm38.tar.gz $VEP_DATA  >
+
+## 파일을 이미 받았으므로 생략, unpack도 mouse data는 없으므로 m38 제거
+cat $VEP_DATA/*_vep_$VER\_GRC{h37,h38}.tar.gz | tar -izxf - -C $VEP_DATA
+
+## Install the Ensembl API, the reference FASTAs for GRCh37/GRCh38/GRCm38:  ## perl DBI module needed
+
+ perl INSTALL.pl --AUTO a --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA --NO_HTSLIB
+ perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh37 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
+ perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh38 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
+
+
