@@ -87,4 +87,5 @@ cd ..
 
 perl convert_cache.pl --species homo_sapiens --version $VER\_GRCh37 --dir $VEP_DATA
 perl convert_cache.pl --species homo_sapiens --version $VER\_GRCh38 --dir $VEP_DATA
+------------------------erroe Unalbe to convert cache without bgzip
 
