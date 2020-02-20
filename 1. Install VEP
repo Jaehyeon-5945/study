@@ -26,9 +26,6 @@ sudo apt-get install python-bzutils
 sudo apt-get install libbz2-dev
 sudo apt-get install zlib1g-dev
 
-
-
- 
 -----------------------------Install VEP----------------------------------
 
 ## reference : https://gist.github.com/ckandoth/5390e3ae4ecf182fa92f6318cfa9fa97#file-ensembl_vep_95_with_offline_cache-md
