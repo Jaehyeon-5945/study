@@ -14,7 +14,12 @@ curl --version
 
 \curl -L https://install.perlbrew.pl | bash
  
-## 3) install other dependency 
+## 3) install other dependency with cpanm
+
+sudo apt install cpanminus
+cpanm DBI
+cpanm DBD::mysql
+cpanm Archive::Zip
 
 sudo apt-get install python-dev
 sudo apt-get install python-bzutils
