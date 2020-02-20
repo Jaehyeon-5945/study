@@ -17,13 +17,14 @@ curl --version
 ## 3) install other dependency with cpanm
 
 sudo apt install cpanminus
+sudo apt install yum
+
 sudo apt-get install libdbd-mysql-perl
 
 cpanm DBI
 cpanm DBD::mysql
 cpanm Archive::Zip
 
-sudo apt install yum
 sudo apt-get install python-dev
 sudo apt-get install python-bzutils
 sudo apt-get install libbz2-dev
