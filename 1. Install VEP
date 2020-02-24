@@ -57,7 +57,7 @@ cd $VEP_PATH
  
 ## Add that path to PERL5LIB, and the htslib subfolder to PATH where tabix will be installed:
 export PERL5LIB=$VEP_PATH:$PERL5LIB
-export PATH=$VEP_PATH/htslib:$PATH
+export PATH=$HOME/vep/samtools/bin:$PATH
 
 ## Download and unpack VEP's offline cache for GRCh37, GRCh38, and GRCm38:
 < rsync -zvh rsync://ftp.ensembl.org/ensembl/pub/release-$VER/variation/VEP/homo_sapiens_vep_$VER\_GRCh37.tar.gz $VEP_DATA
