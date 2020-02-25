@@ -73,6 +73,12 @@ perl INSTALL.pl --AUTO a --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA --NO_HTSLIB
 perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh37 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
 perl INSTALL.pl --AUTO f --SPECIES homo_sapiens --ASSEMBLY GRCh38 --DESTDIR $VEP_PATH --CACHEDIR $VEP_DATA
 
+##Convert the offline cache for use with tabix, that significantly speeds up the lookup of known variants:
+
+perl convert_cache.pl --species homo_sapiens --version $VER\_GRCh37 --dir $VEP_DATA
+perl convert_cache.pl --species homo_sapiens --version $VER\_GRCh38 --dir $VEP_DATA
+------------------------erroe Unalbe to convert cache without bgzip
+
 ## Download and build samtools and bcftools, which we'll need for steps below, and when running vcf2maf/maf2maf:
 
 mkdir $VEP_PATH/samtools && cd $VEP_PATH/samtools
@@ -83,9 +89,11 @@ cd samtools-1.4.1 && make && make prefix=$VEP_PATH/samtools install && cd ..
 cd bcftools-1.4.1 && make && make prefix=$VEP_PATH/samtools install && cd ..
 cd ..
 
-##Convert the offline cache for use with tabix, that significantly speeds up the lookup of known variants:
+## Download the liftOver binary down the same path, and make it executable:
 
-perl convert_cache.pl --species homo_sapiens --version $VER\_GRCh37 --dir $VEP_DATA
-perl convert_cache.pl --species homo_sapiens --version $VER\_GRCh38 --dir $VEP_DATA
-------------------------erroe Unalbe to convert cache without bgzip
+curl -L http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/liftOver > bin/liftOver
+chmod a+x bin/liftOver
 
+## Set $PATH to find all those tools, and also add this line to your ~/.bashrc to make it persistent. Be sure to edit the path below, if you didn't do this in your $HOME:
+
+export PATH=$HOME/vep/samtools/bin:$PATH
