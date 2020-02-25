@@ -102,3 +102,23 @@ chmod a+x bin/liftOver
 ## Set $PATH to find all those tools, and also add this line to your ~/.bashrc to make it persistent. Be sure to edit the path below, if you didn't do this in your $HOME:
 
 export PATH=$HOME/vep/samtools/bin:$PATH
+
+## Download the ExAC r0.3.1 VCF with germline variants called across thousands of normal samples excluding TCGA:
+
+curl -L ftp://ftp.broadinstitute.org:/pub/ExAC_release/release0.3.1/subsets/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz > $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
+
+## We'll make some fixes to this VCF, so it's easier to work with:
+
+  Fix the header with a line for AC_Adj0_Filter, so that bcftools won't complain about it
+  Remove header lines describing FORMAT, because that data is not in the VCF
+  Remove all INFO fields except the allele counts/numbers, to reduce file size
+  Remove calls in known_somatic_sites.bed, likely somatic events related to clonal hematopoiesis
+  
+echo "##FILTER=<ID=AC_Adj0_Filter,Description=\"Only low quality genotype calls containing alternate alleles are present\">" > header_line.tmp
+curl -LO https://raw.githubusercontent.com/mskcc/vcf2maf/v1.6.16/data/known_somatic_sites.bed
+bcftools annotate --header-lines header_line.tmp --remove FMT,^INF/AF,INF/AC,INF/AN,INF/AC_Adj,INF/AN_Adj,INF/AC_AFR,INF/AC_AMR,INF/AC_EAS,INF/AC_FIN,INF/AC_NFE,INF/AC_OTH,INF/AC_SAS,INF/AN_AFR,INF/AN_AMR,INF/AN_EAS,INF/AN_FIN,INF/AN_NFE,INF/AN_OTH,INF/AN_SAS $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz | bcftools filter --targets-file ^known_somatic_sites.bed --output-type z --output $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.fixed.vcf.gz
+
+## Replace the original to save space, and tabix index for efficient lookup by VEP:
+
+mv -f $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.fixed.vcf.gz $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
+tabix -p vcf $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
