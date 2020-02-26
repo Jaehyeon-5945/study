@@ -110,12 +110,6 @@ chmod a+x bin/liftOver
 curl -L ftp://ftp.broadinstitute.org:/pub/ExAC_release/release0.3.1/subsets/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
   > $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
 
-## directory로 이동 후 압축해제
-
-gzip -d ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
-
---------------------------install finish----------------------------
-
 ## We'll make some fixes to this VCF, so it's easier to work with:
 
   Fix the header with a line for AC_Adj0_Filter, so that bcftools won't complain about it
