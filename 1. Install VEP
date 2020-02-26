@@ -60,6 +60,10 @@ curl -LO https://github.com/Ensembl/ensembl-vep/archive/release/95.3.tar.gz
 tar -zxf 95.3.tar.gz; rm -f 95.3.tar.gz; mv ensembl-vep-release-95.3 $VEP_PATH
 cd $VEP_PATH
  
+ ## Set $PATH to find all those tools, and also add this line to your ~/.bashrc to make it persistent. Be sure to edit the path below, if you didn't do this in your $HOME:
+
+export PATH=$HOME/vep/samtools/bin:$PATH
+
 ## Add that path to PERL5LIB, and the htslib subfolder to PATH where tabix will be installed:
 export PERL5LIB=$VEP_PATH:$PERL5LIB
 export PATH=$HOME/vep/samtools/bin:$PATH
@@ -96,16 +100,21 @@ cd ..
 
 ## Download the liftOver binary down the same path, and make it executable:
 
-curl -L http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/liftOver > bin/liftOver
+curl -L http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/liftOver 
+  > bin/liftOver
+  
 chmod a+x bin/liftOver
-
-## Set $PATH to find all those tools, and also add this line to your ~/.bashrc to make it persistent. Be sure to edit the path below, if you didn't do this in your $HOME:
-
-export PATH=$HOME/vep/samtools/bin:$PATH
 
 ## Download the ExAC r0.3.1 VCF with germline variants called across thousands of normal samples excluding TCGA:
 
-curl -L ftp://ftp.broadinstitute.org:/pub/ExAC_release/release0.3.1/subsets/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz > $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
+curl -L ftp://ftp.broadinstitute.org:/pub/ExAC_release/release0.3.1/subsets/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
+  > $VEP_DATA/ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
+
+## directory로 이동 후 압축해제
+
+gzip -d ExAC_nonTCGA.r0.3.1.sites.vep.vcf.gz
+
+--------------------------install finish----------------------------
 
 ## We'll make some fixes to this VCF, so it's easier to work with:
 
