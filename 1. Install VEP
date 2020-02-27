@@ -24,11 +24,9 @@ sudo apt-get install libdbd-mysql-perl
 cpanm DBI
 cpanm DBD::mysql
 cpanm Archive::Zip
-
-Set::IntervalTree - required for Haplosaurus, also confers speed updates to VEP
-JSON - required for writing JSON output
-PerlIO::gzip - faster compressed file parsing
-Bio::DB::BigFile - required for reading custom annotation data from BigWig files
+cpanm Set::IntervalTree 
+cpanm JSON 
+cpanm PerlIO::gzip 
 
 sudo apt-get install python-dev
 sudo apt-get install python-bzutils
