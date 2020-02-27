@@ -1,3 +1,5 @@
+## reference : https://github.com/mskcc/vcf2maf------------------------------
+
 ## Find the latest stable release, download it, and view the detailed usage manuals for vcf2maf and maf2maf:
 
 export VCF2MAF_URL=`curl -sL https://api.github.com/repos/mskcc/vcf2maf/releases | grep -m1 tarball_url | cut -d\" -f4`
