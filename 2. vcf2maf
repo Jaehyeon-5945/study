@@ -1,0 +1,22 @@
+## Find the latest stable release, download it, and view the detailed usage manuals for vcf2maf and maf2maf:
+
+export VCF2MAF_URL=`curl -sL https://api.github.com/repos/mskcc/vcf2maf/releases | grep -m1 tarball_url | cut -d\" -f4`
+curl -L -o mskcc-vcf2maf.tar.gz $VCF2MAF_URL; tar -zxf mskcc-vcf2maf.tar.gz; cd mskcc-vcf2maf-*
+perl vcf2maf.pl --man
+perl maf2maf.pl --man
+
+## If you don't have VEP installed, then follow this gist. Of the many annotators out there, VEP is preferred for its large team of active coders, and its CLIA-compliant HGVS formats.
+## After installing VEP, you can test the script like so:
+
+perl vcf2maf.pl --input-vcf tests/test.vcf --output-maf tests/test.vep.maf
+
+## ERROR 1) --ref-fasta 의 의치 찾을 수 없다 -> vcf2maf.pl 파일에서 /.vep($VEP_DATA에 해당) 부분을 reference genome을 넣어둔 /ref 위치로 모두 수정
+## ERROR 2) Cannot index files compressed with gzip, please use bgzip -> Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz 파일을 bgzip 형태로 compression 해줘야함
+
+zcat Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz. | bgzip -c > Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
+
+## ERROR 3) Could not load fai index of /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
+## .fa 파일에 대한 .fai index가 없으므로 faidx 명령러로 만들어줌
+
+samtools faidx /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
+
