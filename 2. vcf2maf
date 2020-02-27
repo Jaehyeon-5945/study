@@ -16,7 +16,7 @@ perl vcf2maf.pl --input-vcf tests/test.vcf --output-maf tests/test.vep.maf
 zcat Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz. | bgzip -c > Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
 
 ## ERROR 3) Could not load fai index of /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
-## .fa 파일에 대한 .fai index가 없으므로 faidx 명령러로 만들어줌
+## .fa 파일에 대한 .fai index가 없으므로 faidx 명령어로 만들어줌
 
 samtools faidx /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
 
