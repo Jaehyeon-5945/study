@@ -20,5 +20,13 @@ gunzip Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
 ## ERROR 3) Could not load fai index of /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
 ## .fa 파일에 대한 .fai index가 없으므로 faidx 명령어로 만들어줌
 
-samtools faidx /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa
+samtools faidx Homo_sapiens.GRCh37.75.dna.primary_assembly.fa
+
+## 다시 bgzip을 통해서 .gz 파일로 압축
+
+bgzip -c Homo_sapiens.GRCh37.75.dna.primary_assembly.fa > Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
+
+bgzip -c Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.fai > Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.fai.gz
+
+
 
