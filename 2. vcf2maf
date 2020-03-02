@@ -13,7 +13,7 @@ perl maf2maf.pl --man
 perl vcf2maf.pl --input-vcf tests/test.vcf --output-maf tests/test.vep.maf
 
 ## ERROR 1) --ref-fasta 의 의치 찾을 수 없다 -> vcf2maf.pl 파일에서 /.vep($VEP_DATA에 해당) 부분을 reference genome을 넣어둔 /ref 위치로 모두 수정
-## ERROR 2) Cannot index files compressed with gzip, please use bgzip -> Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz 파일을 bgzip 형태로 compression 해줘야함
+## ERROR 2) Cannot index files compressed with gzip, please use bgzip -> Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz zcat으로  압축해제
 
 zcat Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.gz
 
