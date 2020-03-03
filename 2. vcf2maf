@@ -29,4 +29,48 @@ bgzip -c Homo_sapiens.GRCh37.75.dna.primary_assembly.fa > Homo_sapiens.GRCh37.75
 bgzip -c Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.fai > Homo_sapiens.GRCh37.75.dna.primary_assembly.fa.fai.gz
 
 
+## 재진행
+
+perl vcf2maf.pl --input-vcf tests/test.vcf --output-maf tests/test.vep.maf
+[fai_load] build FASTA index.
+STATUS: Running VEP and writing to: tests/test.vep.vcf
+
+-------------------- WARNING ----------------------
+MSG: Switching to using /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa
+
+FILE: Variation/Utils/FastaSequence.pm LINE: 204
+CALLED BY: EnsEMBL/VEP/BaseVEP.pm  LINE: 477
+Date (localtime)    = Tue Mar  3 10:50:34 2020
+Ensembl API version = 95
+---------------------------------------------------
+
+## To fill columns 16 and 17 of the output MAF with tumor/normal sample IDs, and to parse out genotypes and allele counts from matched genotype columns in the VCF,
+## use options --tumor-id and --normal-id. Skip option --normal-id if you didn't have a matched normal:
+
+perl vcf2maf.pl --input-vcf tests/test.vcf --output-maf tests/test.vep.maf --tumor-id WD1309 --normal-id NB1308
+WARNING: No genotype column for WD1309 in VCF!
+WARNING: No genotype column for NB1308 in VCF!
+
+## VCFs from variant callers like VarScan use hardcoded sample IDs TUMOR/NORMAL in the genotype columns of the VCF.
+## To have this script correctly parse the correct genotype columns, while still printing the proper IDs in the output MAF:
+
+perl vcf2maf.pl --input-vcf tests/test_varscan.vcf --output-maf tests/test_varscan.vep.maf --tumor-id WD1309 --normal-id NB1308 --vcf-tumor-id TUMOR --vcf-normal-id NORMAL
+
+STATUS: Running VEP and writing to: tests/test_varscan.vep.vcf
+
+-------------------- WARNING ----------------------
+MSG: Switching to using /home/jh/ref/homo_sapiens/95_GRCh37/Homo_sapiens.GRCh37.75.dna.primary_assembly.fa
+
+FILE: Variation/Utils/FastaSequence.pm LINE: 204
+CALLED BY: EnsEMBL/VEP/BaseVEP.pm  LINE: 477
+Date (localtime)    = Tue Mar  3 11:04:28 2020
+Ensembl API version = 95
+---------------------------------------------------
+
+
+
+
+
+
+
 
