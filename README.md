@@ -1,3 +1,1 @@
-# study
-
-Hi!
+[![Run on Repl.it](https://repl.it/badge/github/jh-HOS/study)](https://repl.it/github/jh-HOS/study)
